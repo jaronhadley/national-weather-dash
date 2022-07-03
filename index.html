@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&family=Merriweather:wght@700&display=swap"
+    rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light m-3 text-center">
+        <span class="navbar-brand mb-0 h1">Weather Dashboard</span>
+      </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-3 h-100">
+                <h2 class="text-primary">Search for a City:</h2>
+                <form id="search-form">
+                    <input id="search-input" class="form-input w-100 m-2" type="text" placeholder="Search a Location">
+                    <button class="btn btn-info btn-block p-2 m-2 w-100">Search</button>
+                </form>
+                <div id="past-searches">
+                    <div class="card m-3 bg-secondary text-white text-center">
+                        <div class="card-body">some text</div>
+                    </div>
+                    <div class="card m-3">
+                        <div class="card-body">some text</div>
+                    </div>
+                    <div class="card m-3">
+                        <div class="card-body">some text</div>
+                    </div>
+                    <div class="card m-3">
+                        <div class="card-body">some text</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div class="row">
+                    <div class="col">
+                        <h2><span id="search-city"></span> - (<span id="today-date"></span>)</h2>
+                        <p>Temp: <span id="today-temp"></span></p>
+                        <p>Wind: <span id="today-wind"></span></p>
+                        <p>Humidity: <span  id="today-humidity"></span></p>
+                        <p> UV Index: <span  id="today-uv"></span></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <header>5-Day Forecast</header>
+                    <div class="col">
+                        <div id="dayPlusOne" class="card">
+                            <h5 class="card-title">7/4/2022</h5>
+                            <p class="forecast-icon"></p>
+                            <p class="forecast-temp">Temp:</p>
+                            <p class="forecast-wind">Wind:</p>
+                            <p class="forecast-humidity">Humidity:</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="dayPlusTwo" class="card">
+                            <h5 class="card-title">7/4/2022</h5>
+                            <p class="forecast-icon"></p>
+                            <p class="forecast-temp">Temp:</p>
+                            <p class="forecast-wind">Wind:</p>
+                            <p class="forecast-humidity">Humidity:</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="dayPlusThree" class="card">
+                            <h5 class="card-title">7/4/2022</h5>
+                            <p class="forecast-icon"></p>
+                            <p class="forecast-temp">Temp:</p>
+                            <p class="forecast-wind">Wind:</p>
+                            <p class="forecast-humidity">Humidity:</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="dayPlusFour" class="card">
+                            <h5 class="card-title">7/4/2022</h5>
+                            <p class="forecast-icon"></p>
+                            <p class="forecast-temp">Temp:</p>
+                            <p class="forecast-wind">Wind:</p>
+                            <p class="forecast-humidity">Humidity:</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div id="dayPlusFive" class="card">
+                            <h5 class="card-title">7/4/2022</h5>
+                            <p class="forecast-icon"></p>
+                            <p class="forecast-temp">Temp:</p>
+                            <p class="forecast-wind">Wind:</p>
+                            <p class="forecast-humidity">Humidity:</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
