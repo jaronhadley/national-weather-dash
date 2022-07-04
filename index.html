@@ -21,29 +21,16 @@
                 <h2 class="text-primary">Search for a City:</h2>
                 <form id="search-form">
                     <input id="search-input" class="form-input w-100 m-2" type="text" placeholder="Search a Location">
-                    <button class="btn btn-info btn-block p-2 m-2 w-100">Search</button>
+                    <button id="search-btn" class="btn btn-info btn-block p-2 m-2 w-100">Search</button>
                 </form>
-                <div id="past-searches">
-                    <div class="card m-3 bg-secondary text-white text-center">
-                        <div class="card-body">some text</div>
-                    </div>
-                    <div class="card m-3">
-                        <div class="card-body">some text</div>
-                    </div>
-                    <div class="card m-3">
-                        <div class="card-body">some text</div>
-                    </div>
-                    <div class="card m-3">
-                        <div class="card-body">some text</div>
-                    </div>
-                </div>
+                <div id="past-searches"></div>
             </div>
 
             <div class="col-9">
                 <div class="row">
                     <div class="col">
-                        <h2><span id="search-city"></span> - (<span id="today-date"></span>)</h2>
-                        <p>Temp: <span id="today-temp"></span></p>
+                        <h2><span id="search-city"></span> - (<span id="today-date"></span>)<img id="today-icon" alt="weather icon"></h2>
+                        <p>Current Temp: <span id="today-temp"></span></p>
                         <p>Wind: <span id="today-wind"></span></p>
                         <p>Humidity: <span  id="today-humidity"></span></p>
                         <p> UV Index: <span  id="today-uv"></span></p>
@@ -54,7 +41,7 @@
                     <div class="col">
                         <div id="dayPlusOne" class="card">
                             <h5 class="card-title">7/4/2022</h5>
-                            <p class="forecast-icon"></p>
+                            <img class="forecast-icon" alt="weather icon">
                             <p class="forecast-temp">Temp:</p>
                             <p class="forecast-wind">Wind:</p>
                             <p class="forecast-humidity">Humidity:</p>
@@ -63,7 +50,7 @@
                     <div class="col">
                         <div id="dayPlusTwo" class="card">
                             <h5 class="card-title">7/4/2022</h5>
-                            <p class="forecast-icon"></p>
+                            <img class="forecast-icon" alt="weather icon">
                             <p class="forecast-temp">Temp:</p>
                             <p class="forecast-wind">Wind:</p>
                             <p class="forecast-humidity">Humidity:</p>
@@ -72,7 +59,7 @@
                     <div class="col">
                         <div id="dayPlusThree" class="card">
                             <h5 class="card-title">7/4/2022</h5>
-                            <p class="forecast-icon"></p>
+                            <img class="forecast-icon" alt="weather icon">
                             <p class="forecast-temp">Temp:</p>
                             <p class="forecast-wind">Wind:</p>
                             <p class="forecast-humidity">Humidity:</p>
@@ -81,7 +68,7 @@
                     <div class="col">
                         <div id="dayPlusFour" class="card">
                             <h5 class="card-title">7/4/2022</h5>
-                            <p class="forecast-icon"></p>
+                            <img class="forecast-icon" alt="weather icon">
                             <p class="forecast-temp">Temp:</p>
                             <p class="forecast-wind">Wind:</p>
                             <p class="forecast-humidity">Humidity:</p>
@@ -90,7 +77,7 @@
                     <div class="col">
                         <div id="dayPlusFive" class="card">
                             <h5 class="card-title">7/4/2022</h5>
-                            <p class="forecast-icon"></p>
+                            <img class="forecast-icon" alt="weather icon">
                             <p class="forecast-temp">Temp:</p>
                             <p class="forecast-wind">Wind:</p>
                             <p class="forecast-humidity">Humidity:</p>
