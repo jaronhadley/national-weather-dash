@@ -28,6 +28,8 @@ var dayPlusFive = $("#dayPlusFive");
 // forecast array
 var forecastCards = [dayPlusOne, dayPlusTwo, dayPlusThree, dayPlusFour, dayPlusFive];
 
+// uv formats
+var uvFormats = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen"]
 
 //search city
 function searchCity(city) {
@@ -71,6 +73,43 @@ function renderToday(data,city,state,country){
     // humidity
     todayHumidity.text(data.humidity);
     // UV Index
+    // remove previous formatting
+    uvFormats.forEach(className => {
+        todayUV.removeClass(className)
+    })
+    // add new formatting
+    if(data.uvi<1){
+        todayUV.addClass("zero");
+    } else if (data.uvi<2){
+        todayUV.addClass("one");
+    } else if (data.uvi<3){
+        todayUV.addClass("two");
+    } else if (data.uvi<4){
+        todayUV.addClass("three");
+    } else if (data.uvi<5){
+        todayUV.addClass("four");
+    } else if (data.uvi<6){
+        todayUV.addClass("five");
+    } else if (data.uvi<7){
+        todayUV.addClass("six");
+    } else if (data.uvi<8){
+        todayUV.addClass("seven");
+    } else if (data.uvi<9){
+        todayUV.addClass("eight");
+    } else if (data.uvi<10){
+        todayUV.addClass("nine");
+    } else if (data.uvi<11){
+        todayUV.addClass("ten");
+    } else if (data.uvi<12){
+        todayUV.addClass("eleven");
+    } else if (data.uvi<13){
+        todayUV.addClass("twelve");
+    } else if (data.uvi<14){
+        todayUV.addClass("thirteen");
+    } else {
+        todayUV.addClass("fourteen");
+    }
+    // update text
     todayUV.text(data.uvi);
 }
 function renderForecast(data){

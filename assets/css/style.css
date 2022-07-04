@@ -1,0 +1,49 @@
+.zero {
+    background-color:blue;
+}
+.one {
+    background-color:green;
+}
+.two {
+    background-color: greenyellow;
+}
+.three {
+    background-color:yellow;
+}
+.four {
+    background-color: goldenrod;
+}
+.five {
+    background-color: orange;
+}
+.six {
+    background-color:orangered;
+}
+.seven {
+    background-color: red;
+}
+.eight {
+    background-color: maroon;
+}
+.nine {
+    background-color:violet;
+}
+.ten {
+    background-color:purple;
+}
+.eleven {
+    background-color:lavender;
+}
+.twelve {
+    background-color:cornflowerblue;
+}
+.thirteen {
+    background-color:lightskyblue
+}
+.fourteen {
+    background-color:aqua;
+}
+.forecast-icon {
+    height:25%;
+    width: 25%;
+}
