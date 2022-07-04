@@ -13,6 +13,9 @@ var todayUV = $("#today-uv");
 // today icon
 var todayIcon = $("#today-icon");
 
+// search button link
+var searchBtn = $("#search-btn");
+
 // Forecast Card links
 // day plus one link
 var dayPlusOne = $("#dayPlusOne");
@@ -25,6 +28,8 @@ var dayPlusFour = $("#dayPlusFour");
 // day plus five link
 var dayPlusFive = $("#dayPlusFive");
 
+// past searches link
+var pastSearches = $("#past-searches");
 // forecast array
 var forecastCards = [dayPlusOne, dayPlusTwo, dayPlusThree, dayPlusFour, dayPlusFive];
 
@@ -46,32 +51,33 @@ function searchCoordinates(city){
     fetch(queryURL)
         .then((res) => res.json())
         .then( function (coorData) {
-            console.log(coorData);
             fetch("https://api.openweathermap.org/data/2.5/onecall?lat="+coorData[0].lat+"&lon="+coorData[0].lon+"&exclude=minutely,hourly,alerts&units=imperial&appid=b2434684140d619ef976e1e54725b70d")
                 .then ((response) => response.json())
                 .then(function (weatherData){
-                    console.log(weatherData.current);
                     renderToday(weatherData.current,coorData[0].name,coorData[0].state,coorData[0].country);
-                    console.log(moment.unix(weatherData.current.dt).format("M/D/YYYY"))
                     renderForecast(weatherData.daily);
-                    console.log(weatherData.daily);
                 })
         })
+    renderSearches();
     }
 // fill out results
 function renderToday(data,city,state,country){
     // location
-    searchCity.text(city+" "+state+", "+country);
+    if(!state){
+        searchCity.text(city+", "+country);
+    } else {
+        searchCity.text(city+" "+state+", "+country);
+    }
     // icon
     todayIcon.attr('src',"http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
     // date
     todayDate.text(moment.unix(data.dt).format("M/D/YYYY"));
     // temp
-    todayTemp.text(data.temp);
+    todayTemp.text(data.temp+" \u00B0F");
     // wind
-    todayWind.text(data.wind_speed);
+    todayWind.text(data.wind_speed +" MPH");
     // humidity
-    todayHumidity.text(data.humidity);
+    todayHumidity.text(data.humidity+"%");
     // UV Index
     // remove previous formatting
     uvFormats.forEach(className => {
@@ -120,13 +126,13 @@ function renderForecast(data){
             if($(this).hasClass("card-title")){
                 $(this).text(moment.unix(dayData.dt).format("M/D/YYYY"));
             } else if ($(this).hasClass("forecast-temp")){
-                $(this).text("Temp: " + dayData.temp.day);
+                $(this).text("Temp: " + dayData.temp.day +" \u00B0F");
             }
             else if ($(this).hasClass("forecast-wind")){
-                $(this).text("Wind: " + dayData.wind_speed);
+                $(this).text("Wind: " + dayData.wind_speed + " MPH");
             }
             else if ($(this).hasClass("forecast-humidity")){
-                $(this).text("Humidity: " + dayData.humidity);
+                $(this).text("Humidity: " + dayData.humidity + "%");
             }
             else if ($(this).hasClass("forecast-icon")){
                 $(this).attr('src',"http://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png");
@@ -136,16 +142,59 @@ function renderForecast(data){
     })
 }
 // save search
+function saveSearch(searchValue){
+    var storedSearches = localStorage.getItem('searches');
+    if(storedSearches){
+        localStorage.setItem('searches',storedSearches+";"+searchValue);
+    } else {
+        localStorage.setItem('searches',searchValue);
+    }
+}
 
 // load prev searches
-// add prev seach class
-//card m-3 bg-secondary text-white text-center
-//<div class="card-body">city name</div>
+function renderSearches(){
+    $(".past-search").remove();
+    var storedSearches = localStorage.getItem('searches');
+    var storedSearch = storedSearches.split(";");
+    storedSearch = [...new Set(storedSearch)]; 
+    cnt=0;
+    for(i=storedSearch.length-1;i>=0;i--){
+        cnt++;
+        if(cnt<10){
+            var search = $("<div>")
+                                .addClass("card m-3 bg-secondary text-white text-center past-search")
+                                .data('search',storedSearch[i])
+                                .append($("<div>")
+                                    .addClass("card-body")
+                                    .text(storedSearch[i]));
+            pastSearches.append(search);
+        }
+    }
+    $(".past-search").on('click',searchPast);
+}
 
+function searchPast(event){
+    if($(this).data('search')){
+        searchCoordinates($(this).data('search'))
+    }
+}
 
-// search event listener
-// prev-search event listener
+function handleSearchFormSubmit(event) {
+    event.preventDefault();
+
+    var searchInputVal = document.querySelector('#search-input').value;
+
+    if (!searchInputVal) {
+        console.error('You need a search input value!');
+        return;
+    }
+    saveSearch(searchInputVal);
+    searchCoordinates(searchInputVal);
+}
+  
+  
 
 // default search - Atlanta
-searchCoordinates("Logan");
+searchCoordinates("Atlanta");
+$("#search-form").on('submit',handleSearchFormSubmit)
 
