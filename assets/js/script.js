@@ -127,7 +127,7 @@ function renderForecast(data){
                 $(this).text("Humidity: " + dayData.humidity + "%");
             }
             else if ($(this).hasClass("forecast-icon")){
-                $(this).attr('src',"http://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png");
+                $(this).attr('src',"https://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png");
             }
         })
         cnt++;
