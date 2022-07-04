@@ -36,18 +36,9 @@ var forecastCards = [dayPlusOne, dayPlusTwo, dayPlusThree, dayPlusFour, dayPlusF
 // uv formats
 var uvFormats = ["one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen"]
 
-//search city
-function searchCity(city) {
-    var latLon = searchCoordinates(city);
-    // get weather
-//https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-    var queryURL = "https://api.openweathermap.org/data/2.5/onecall?" + latLon + "&exclude=minutely,hourly,alerts&appid=b2434684140d619ef976e1e54725b70d"
-}
-
 function searchCoordinates(city){
 //get city coordinates
-//http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-    var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=b2434684140d619ef976e1e54725b70d"
+    var queryURL = "https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=b2434684140d619ef976e1e54725b70d"
     fetch(queryURL)
         .then((res) => res.json())
         .then( function (coorData) {
@@ -60,16 +51,17 @@ function searchCoordinates(city){
         })
     renderSearches();
     }
+
 // fill out results
 function renderToday(data,city,state,country){
     // location
-    if(!state){
-        searchCity.text(city+", "+country);
+    if(!state){ // if state is null
+        searchCity.text(city+", "+country); 
     } else {
         searchCity.text(city+" "+state+", "+country);
     }
     // icon
-    todayIcon.attr('src',"http://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
+    todayIcon.attr('src',"https://openweathermap.org/img/w/" + data.weather[0].icon + ".png")
     // date
     todayDate.text(moment.unix(data.dt).format("M/D/YYYY"));
     // temp
@@ -141,7 +133,7 @@ function renderForecast(data){
         cnt++;
     })
 }
-// save search
+// save search in local storage
 function saveSearch(searchValue){
     var storedSearches = localStorage.getItem('searches');
     if(storedSearches){
@@ -153,32 +145,39 @@ function saveSearch(searchValue){
 
 // load prev searches
 function renderSearches(){
+    // clear previously listed searches
     $(".past-search").remove();
     var storedSearches = localStorage.getItem('searches');
-    var storedSearch = storedSearches.split(";");
-    storedSearch = [...new Set(storedSearch)]; 
-    cnt=0;
-    for(i=storedSearch.length-1;i>=0;i--){
-        cnt++;
-        if(cnt<10){
-            var search = $("<div>")
-                                .addClass("card m-3 bg-secondary text-white text-center past-search")
-                                .data('search',storedSearch[i])
-                                .append($("<div>")
-                                    .addClass("card-body")
-                                    .text(storedSearch[i]));
-            pastSearches.append(search);
+    if(storedSearches){
+        var storedSearch = storedSearches.split(";");
+        storedSearch = [...new Set(storedSearch)]; 
+        cnt=0;
+        for(i=storedSearch.length-1;i>=0;i--){
+            cnt++;
+            // only display last 10 searches
+            if(cnt<10){
+                var search = $("<div>")
+                                    .addClass("card m-3 bg-secondary text-white text-center past-search")
+                                    .data('search',storedSearch[i])
+                                    .append($("<div>")
+                                        .addClass("card-body")
+                                        .text(storedSearch[i]));
+                pastSearches.append(search);
+            }
         }
+        // add listener
+        $(".past-search").on('click',searchPast);
     }
-    $(".past-search").on('click',searchPast);
 }
 
+// past searches event handler
 function searchPast(event){
     if($(this).data('search')){
         searchCoordinates($(this).data('search'))
     }
 }
 
+// search form event handler
 function handleSearchFormSubmit(event) {
     event.preventDefault();
 
@@ -192,8 +191,6 @@ function handleSearchFormSubmit(event) {
     searchCoordinates(searchInputVal);
 }
   
-  
-
 // default search - Atlanta
 searchCoordinates("Atlanta");
 $("#search-form").on('submit',handleSearchFormSubmit)
